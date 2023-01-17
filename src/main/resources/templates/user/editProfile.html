@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<script th:src="@{/js/jquery-3.4.1.js}"></script>
+<script th:src="@{/Semantic-UI-CSS-master/semantic.js}"></script>
+<link rel="stylesheet" th:href="@{/Semantic-UI-CSS-master/semantic.css}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>editProfile</title>
+</head>
+
+<body>
+<h1></h1>
+<!--动态路径 th:action="@{/user/update/{role}(role=${user.username})}"-->
+<form class="ui form" style="width:300px; margin:0 auto" th:action="@{/user/update}" method="post">
+    <div class="field">
+        <label>
+            昵称<span style="color: red;font-family: inherit"
+                    th:text="${session.msg}" th:if="${session.msg}!=null">
+            </span>
+        </label>
+        <input type="text" name="username" th:value="${user.username}">
+    </div>
+    <div class="field">
+        <label>密码</label>
+        <input type="password" name="password" th:value="${user.password}">
+    </div>
+    <div class="field">
+        <label>性别</label>
+        <input type="text" name="gender" th:value="${user.gender}">
+    </div>
+    <div class="field">
+        <label>电话</label>
+        <input type="text" name="phone" th:value="${user.phone}">
+    </div>
+    <a>
+        <button class="ui button" type="submit">提交修改</button>
+    </a>
+</form>
+
+
+</body>

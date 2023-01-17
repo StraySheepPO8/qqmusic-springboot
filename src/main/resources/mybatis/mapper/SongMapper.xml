@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress MybatisMapperXmlInspection -->
+<mapper namespace="com.yahoo.mapper.SongMapper">
+    <select id="selectAll" resultType="song">
+        select *
+        from qq_music.song
+    </select>
+    <select id="selectById" resultType="song">
+        select *
+        from qq_music.song
+        where id = #{id}
+    </select>
+    <select id="selectByIds" resultType="song" parameterType="list">
+        select *
+        from qq_music.song
+        where id in
+        <foreach collection="list" item="id"
+                 open="(" separator="," close=")">
+            #{id.id}
+        </foreach>
+    </select>
+    <select id="selectWithUsername" resultType="song">
+        select s.*
+        from qq_music.user_like u
+                 join qq_music.song s
+                      on u.id = s.id
+        where username = #{username}
+    </select>
+    <insert id="insert" parameterType="song">
+        insert into qq_music.song
+        <if test="id==null">(song,singer,album)</if>
+        values (<if test="id!=null">#{id},</if>#{song}, #{singer}, #{album})
+    </insert>
+    <update id="update">
+        update qq_music.song
+        set id     = #{song.id},
+            song   = #{song.song},
+            singer = #{song.singer},
+            album  = #{song.album}
+        where id = #{id}
+    </update>
+    <delete id="delete">
+        delete
+        from qq_music.song
+        where id = #{id}
+    </delete>
+</mapper>

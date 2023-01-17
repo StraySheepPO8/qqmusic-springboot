@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress MybatisMapperXmlInspection -->
+<mapper namespace="com.yahoo.mapper.UserMapper">
+    <select id="selectByUsername" resultType="user">
+        select * from qq_music.user where username = #{username}
+    </select>
+<!--    map时没有提示，但是是对的-->
+    <update id="updateByUsername">
+        update qq_music.user
+        set username =#{user.username}, password = #{user.password}, gender = #{user.gender}, phone = #{user.phone}
+        where username = #{username}
+    </update>
+</mapper>

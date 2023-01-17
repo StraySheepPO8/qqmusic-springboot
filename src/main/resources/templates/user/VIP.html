@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<script th:src="@{/js/jquery-3.4.1.js}"></script>
+<script th:src="@{/Semantic-UI-CSS-master/semantic.js}"></script>
+<link rel="stylesheet" th:href="@{/Semantic-UI-CSS-master/semantic.css}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VIP</title>
+</head>
+
+<body style="text-align: center;">
+<div th:replace="~{/index::header}"></div>
+
+<div shiro:hasPermission="admin">管理员没有此项信息</div>
+
+<shiro:guest>
+<!--    <div class="ui negative message">-->
+<!--        <div>-->
+            <p class="text">您还未登录！ <a th:href="@{/toLogin}">马上登录 ></a></p>
+
+</shiro:guest>
+
+<shiro:user>
+    <h1></h1>
+    <shiro:hasPermission name="common">
+        <!--        h1-->
+        <h1 class="ui header">
+            <i class="spotify icon" style="display:inline-block"></i>
+            绿钻豪华版
+        </h1>
+        <div class="sub header">音乐，更优悦</div>
+        <a href="#">
+            <button class="positive ui button">去开通 ></button>
+        </a>
+    </shiro:hasPermission>
+
+    <shiro:hasPermission name="vip">
+        <h1></h1>
+        <h2>您已是VIP</h2>
+        <a th:href="@{/}">回首页 ></a>
+    </shiro:hasPermission>
+</shiro:user>
+
+</body>

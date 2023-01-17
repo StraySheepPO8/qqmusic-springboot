@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress MybatisMapperXmlInspection -->
+<mapper namespace="com.yahoo.mapper.UserLikeMapper">
+    <select id="selectByUsername" resultType="userLike">
+        select *
+        from qq_music.user_like
+        where username = #{username}
+    </select>
+
+    <delete id="delete">
+        delete
+        from qq_music.user_like
+        where username = #{username}
+          and id = #{id}
+    </delete>
+</mapper>

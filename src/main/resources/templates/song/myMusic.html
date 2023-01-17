@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<script th:src="@{/js/jquery-3.4.1.js}"></script>
+<script th:src="@{/Semantic-UI-CSS-master/semantic.js}"></script>
+<link rel="stylesheet" th:href="@{/Semantic-UI-CSS-master/semantic.css}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>myMusic</title>
+</head>
+
+<body>
+<div th:replace="~{/index::header}"></div>
+
+<!--shiro:hasPermission="admin"会先判断是否登录了-->
+<div shiro:hasPermission="admin" style="text-align: center;">管理员没有此项信息</div>
+<shiro:guest>
+    <div style="text-align: center;">
+        <h1></h1>
+        <h1 class="ui header">
+            私人音乐空间，听我想听的歌
+            <div class="sub header">登录管理我的音乐，多终端同步</div>
+        </h1>
+        <a th:href="@{/user/toLogin}">去登录 ></a>
+    </div>
+</shiro:guest>
+
+<!-- 歌曲列表 -->
+<!-- &emsp; -->
+<shiro:user>
+    <shiro:lacksPermission name="admin">
+<!--        表格：用户收藏的歌曲-->
+        <table class="ui striped table">
+<!--            表头-->
+            <thead>
+            <tr>
+                <th style="width: 5px"></th>
+                <th>歌曲</th>
+                <th>歌手</th>
+                <th>专辑</th>
+                <th>取消喜欢</th>
+            </tr>
+            </thead>
+<!--            表体：如果myMusic不为空，则显示tbody，并在内部循环tr标签-->
+            <tbody th:if="${myMusic.size()!=0}">
+            <!--        th:href="@{/song/update/${song.id}}"
+                        @{}里面不可以有${}，会不解析会一大串字符,直接写model属性会不解析
+                        ${}里面可以直接写model的属性，不用再使用￥{}包裹
+                        总结：
+                        当标签属性需要为动态的时，首先使用${}包裹，里面再使用#+内置对象（#要用${}包裹），
+                        直接model属性，三目表达式（if判断的效果）
+                        -->
+            <tr th:each="song :${myMusic}">
+                <td th:text="${myMusic.indexOf(song)}+1"></td>
+                <td th:text="${song.song}"></td>
+                <td th:text="${song.singer}"></td>
+                <td th:text="${song.album}"></td>
+                <td>
+                    <a th:href="${#request.contextPath+'/userLike/delete/'+song.id}">
+                        <i class="trash alternate outline red icon"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+<!--        如果表格为空-->
+        <div th:if="${myMusic.size()==0}" style="text-align: center;">
+            <p>空空如也...</p>
+        </div>
+    </shiro:lacksPermission>
+</shiro:user>
+
+</body>

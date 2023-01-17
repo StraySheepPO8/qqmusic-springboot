@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: dev
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    username: root
+    password: ljl123
+    url: jdbc:mysql://localhost:3306/qq_music?useUnicode=true&serverTimezone=GMT&charactorEncoding=utf8
+  redis:
+    host: localhost
+    port: 6379
+    password:
+#    type: com.zaxxer.hikari.HikariDataSource
+
+
+mybatis:
+  mapper-locations: mybatis/mapper/*.xml
+  type-aliases-package: com.yahoo.pojo.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+

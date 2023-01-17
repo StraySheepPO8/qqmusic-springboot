@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<script th:src="@{/js/jquery-3.4.1.js}"></script>
+<script th:src="@{/Semantic-UI-CSS-master/semantic.js}"></script>
+<link rel="stylesheet" th:href="@{/Semantic-UI-CSS-master/semantic.css}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>profile</title>
+</head>
+
+<body>
+    <h1></h1>
+    <div style="text-align: center;">
+        <div class="ui card" style="margin:0 auto">
+            <div class="image">
+                <img th:src="${#request.contextPath+'/images/icon/'+user.iconName}">
+            </div>
+            <div class="content">
+                <a class="header" th:text="${user.username}"></a>
+<!--                ${}外面不要有字符串，会报错-->
+                    性别：<i th:if="${not #strings.isEmpty(user.gender)}" th:class="${user.gender+' user icon'}" ></i>
+                         <span th:if="${#strings.isEmpty(user.gender)}">未知</span>
+                    <p>身份：<span th:text="${user.role}"></span> </p>
+                <div class="meta">
+                    <span class="date">Joined in 2013</span>
+                </div>
+                <div class="description">
+                    I am an art director living in New York.
+                </div>
+            </div>
+            <div class="extra content">
+                <a>
+                    <i class="phone black icon"></i>
+                    [[${user.phone}]]
+                </a>
+            </div>
+            <div class="extra content">
+                <a th:href="${#request.contextPath+'/user/toEdit/'+user.username}">
+                    <i class="edit blue outline icon"></i>
+                    编辑
+                </a>
+            </div>
+            <div class="extra content">
+                <a th:href="@{/user/logout}">
+                    <i class="logout red icon"></i>
+                    退出登录
+                </a>
+            </div>
+            <div class="extra content">
+                <a th:href="@{/}">
+                    <i class="home green icon"></i>
+                    回到首页
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</body>

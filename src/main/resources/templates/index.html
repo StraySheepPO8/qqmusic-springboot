@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<script th:src="@{/js/jquery-3.4.1.js}"></script>
+<script th:src="@{/Semantic-UI-CSS-master/semantic.js}"></script>
+<link rel="stylesheet" th:href="@{/Semantic-UI-CSS-master/semantic.css}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+
+<body>
+<!-- 头部导航栏 -->
+<div style="border-bottom: 1px #979696 solid; margin: 10px 20px; padding: 5px 5px 10px 5px;"
+     th:fragment="header">
+    <div class="ui secondary  menu">
+        <img class="ui small image" th:src="@{/images/logo.png}">
+        <a th:attr="class=${#strings.equals(link,'musicHouse')} ? 'active item' : 'item'"
+           th:href="@{/}">音乐馆</a>
+        <a th:attr="class=${#strings.equals(link,'myMusic')} ? 'active item' : 'item'"
+           th:href="@{/song/myMusic}">我的音乐</a>
+        <a th:attr="class=${#strings.equals(link,'allMusic')} ? 'active item' : 'item'"
+           th:href="@{/song/allMusic}">全部歌曲</a>
+        <a th:attr="class=${#strings.equals(link,'vip')} ? 'active item' : 'item'"
+           th:href="@{/user/vip}">VIP</a>
+        <div class="right menu">
+            <div class="item">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search...">
+                    <a href="http://www.baidu.com" style="margin:auto 5px;"><i class="search link icon"></i></a>
+                </div>
+            </div>
+            <shiro:guest>
+                <a class="ui item" th:href="@{/toLogin}">
+                    登录/注册
+                </a>
+            </shiro:guest>
+            <shiro:user>
+                <span class="ui item">
+                    您好，<shiro:principal property="username"/>
+                </span>
+                <a th:href="@{/user/profile}">
+                    <img id="icon" class="ui circular image" style="width: 45px;" src=""/>
+                </a>
+                <!--                <shiro:principal property="iconName"/>-->
+                &emsp;
+                <a shiro:hasPermission="common"
+                   href="" class="ui green button text" style="margin: auto 0">
+                    开通VIP
+                </a>
+                <a class="ui item" th:href="@{/user/logout}">
+                    退出登录
+                </a>
+            </shiro:user>
+            <!--            <img id="test" src=""/>-->
+            <script>
+                $(function () {
+                    //好像不能用Ajax，要用get，post
+                    $.get({
+                        url: '/getPrincipal',
+                        type: 'get',
+                        dataType: "json",
+                        beforeSend: function () {
+                            console.log('请求前');
+                        },
+                        success: function (data) {
+                            const s = JSON.stringify(data);
+                            console.log("后端返回的数据是：" + s);
+                            $("#icon").attr('src', '/images/icon/' + data.iconName);
+                        },
+                        complete: function () {
+                            // 请求完成的处理
+                        },
+                        error: function (status) {
+                            console.log('没有principal（Ajax）,status:' + status.toString());
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>
+
+
+<div class="ui eight item menu">
+    <a class="active item">首页</a>
+    <a class="item">歌手</a>
+    <a class="item">新碟</a>
+    <a class="item">排行榜</a>
+    <a class="item">分类歌单</a>
+    <a class="item">电台</a>
+    <a class="item">MV</a>
+    <a class="item">数字专辑</a>
+</div>
+<h1 style="text-align: center;">歌单推荐</h1>
+<div class="ui secondary pointing menu">
+    <!--
+        三目运算：不需要${},后面两个选择需要'',有多个属性可以用|active item|
+        th:attr不需要${},直接’属性1=值，属性2=值‘
+        #strings的方法里获取model内的对象不需要￥{}，#strings对象需要￥{}
+    -->
+    <a th:attr="class =${#strings.equals(type,'recommendForYou')} ? 'active item':'item'"
+       th:href="@{/}">
+        为你推荐
+    </a>
+    <a th:attr="class = ${#strings.equals(type,'classical')} ? 'active item':'item'"
+       th:href="@{/list/classical}">
+        经典
+    </a>
+    <a class="item">
+        经典国语
+    </a>
+    <a class="item">
+        短视频热歌
+    </a>
+    <a class="item">
+        官方歌单
+    </a>
+    <a class="item">
+        情歌
+    </a>
+    <div class="right menu">
+    </div>
+</div>
+<div class="ui segment">
+    <div class="ui small images">
+        <div style="display: inline-block;" th:each="song :${songList}">
+            <!--            当要拼接字符串时，￥{#strings.append()}一定在外层，里面不能有@{}了，
+                            请使用JavaWeb的request.contextPath-->
+            <img th:attr="src=${#strings.append(
+            #request.contextPath +'/images/',song.type+'/'+song.pictureName)}">
+            <h5 class="ui header">
+                [[${song.listName}]]
+                <div class="sub header">播放量：[[${song.plays}]]万</div>
+            </h5>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

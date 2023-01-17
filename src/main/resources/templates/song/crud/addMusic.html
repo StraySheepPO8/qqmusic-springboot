@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<script th:src="@{/js/jquery-3.4.1.js}"></script>
+<script th:src="@{/Semantic-UI-CSS-master/semantic.js}"></script>
+<link rel="stylesheet" th:href="@{/Semantic-UI-CSS-master/semantic.css}">
+
+<head>
+  <meta charset="UTF-8">
+  <title>addMusic</title>
+</head>
+
+<body>
+    <h1></h1>
+    <form th:action="@{/song/crud/insert}" method="post" class="ui form" style="width:300px; margin:0 auto">
+        <div class="field">
+            <label>编号</label>
+            <input type="number" name="id" placeholder="可不设置。不设置则采用自增形式">
+        </div>
+        <div class="field">
+          <label>歌名</label>
+          <input type="text" name="song">
+        </div>
+        <div class="field">
+          <label>歌手</label>
+          <input type="text" name="singer">
+        </div>
+        <div class="field">
+            <label>专辑</label>
+            <input type="text" name="album">
+          </div>
+        <a><button class="ui button" type="submit"><i class="plus icon"></i>添加</button></a>
+        <div class="field">
+            <p></p>
+            <span style="color: red" th:text="${msg}" th:if="${msg}!=null"></span>
+        </div>
+    </form>
+
+
+</body>
