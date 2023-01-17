@@ -33,7 +33,7 @@ qq音乐网站页面设计
 
 数据库名称时qq_music，包括下面四个表。
 
-![image-20230113160443079](.\docs\images\tables.png)
+![数据库的所有表](./docs/images/tables.png)
 
 功能以实体类为中心进行简单总结：
 
