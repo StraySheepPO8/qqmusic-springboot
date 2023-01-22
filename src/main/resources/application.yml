@@ -15,10 +15,11 @@ spring:
 #    type: com.zaxxer.hikari.HikariDataSource
 
 
-mybatis:
+mybatis-plus:
   mapper-locations: mybatis/mapper/*.xml
   type-aliases-package: com.yahoo.pojo.entity
   configuration:
     map-underscore-to-camel-case: true
 
-
+#mybatis-plus:
+#  mapper-locations: classpath:mybatis/mapper/*.xml

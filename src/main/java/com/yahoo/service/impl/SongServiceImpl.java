@@ -1,5 +1,8 @@
 package com.yahoo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yahoo.mapper.SongMapper;
 import com.yahoo.pojo.dto.SongDTO;
 import com.yahoo.pojo.entity.Song;
@@ -48,6 +51,38 @@ public class SongServiceImpl implements SongService {
 
         redisTemplate.opsForValue().set("song_selectAll", vos);
         return vos;
+    }
+
+
+    @Override
+    public List<Song> selectSongPage(long currentPage, long pageSize) {
+        Object o = redis.get("selectSongPage:" + currentPage + "," + pageSize);
+        if (o != null) {
+            return (List<Song>)o;
+        }
+
+//        查询包装类
+        QueryWrapper<Song> queryWrapper = new QueryWrapper<>();
+//        设置查询条件：id字段的值大于12
+//        queryWrapper.gt("id",12);
+
+//        IPage是接口，Page是实现类。true代表查询总记录数，也有没有这个参数的重载方法
+        Page<Song> page = new Page<>(currentPage, pageSize, true);
+
+//        如果是单表查询，且mapper接口继承了BaseMapper<Song>就不需要写接口方法
+        //   queryWrapper可以为null：不进行条件判断
+//        返回List<Song>类型对象的方法selectPage
+        IPage<Song> songPage = songMapper.selectPage(page, queryWrapper);
+//        返回List<Map<String, Object>>类型对象的方法：selectMapsPage，其余代码一致
+//        IPage<Map<String, Object>> mapIPage = studentMapper.selectMapsPage(page, wrapper);
+
+        System.out.println("总页数:" + songPage.getPages());
+        System.out.println("总记录数:" + songPage.getTotal());
+        //getRecords()分页对象记录列表
+        List<Song> records = songPage.getRecords();
+
+        redis.set("selectSongPage:" + currentPage + "," + pageSize, records);
+        return records;
     }
 
 

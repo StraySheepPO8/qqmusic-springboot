@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+>
 <script th:src="@{/js/jquery-3.4.1.js}"></script>
 <script th:src="@{/Semantic-UI-CSS-master/semantic.js}"></script>
 <link rel="stylesheet" th:href="@{/Semantic-UI-CSS-master/semantic.css}">
@@ -32,8 +32,7 @@
         <th>操作</th>
     </tr>
     </thead>
-    <tbody>
-
+    <tbody id="tbody">
     <!--             需要if判断的都要转换成三目运算的写法
     th:onclick="${song.isLike+'('+song.sFix+','+song.id+')'}"不行-->
     <tr th:each="song :${allMusic}">
@@ -50,5 +49,41 @@
     </tbody>
 </table>
 
+<div style="text-align: center;"><a onclick="moreSong()">加载更多...</a></div>
+
+<!--分页查询-->
+<script>
+    var page = 2;
+    function moreSong() {
+        $.get({
+            url: '/song/moreSong',
+            type: 'get',
+            data: {currentPage:page},
+            dataType: 'json',
+            success: function (data) {
+                const s = JSON.stringify(data);
+                console.log("moreSong():后端响应的数据转换为json是：" + s);
+                for (let i = 0; i < 5; i++) {
+                    let id = data[i].id;
+                    let td0 = '<td>' + ((page - 1) * 5 + 1 + i) + '</td>';
+                    let td1 = '<td>' + id + '</td>';
+                    let td2 = '<td>' + data[i].song + '</td>';
+                    let td3 = '<td>' + data[i].singer + '</td>';
+                    let td4 = '<td>' + data[i].album + '</td>';
+                    let a1 = '<a href="/song/crud/update/' + id + '"><i class="edit outline icon"></i></a>';
+                    let a2 = '<a href="/song/crud/delete/' + id + '"><i class="trash alternate outline red icon"></i></a>';
+                    let td5 = '<td>' + a1 + a2 + '</td>';
+
+                    let tr = '<tr>' + td0 + td1 + td2 + td3 + td4 + td5 + '</tr>'
+                    $('#tbody').append(tr);
+                }
+                page++;
+            },
+            error: function () {
+                console.log('moreSong()：出现错误');
+            }
+        });
+    }
+</script>
 
 </body>

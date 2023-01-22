@@ -12,15 +12,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -45,7 +43,8 @@ public class SongController {
         switch (link) {
             case "allMusic":
                 model.addAttribute("link", "allMusic");
-                model.addAttribute("allMusic", songService.selectAll());
+//                model.addAttribute("allMusic", songService.selectAll());
+                model.addAttribute("allMusic", songService.selectSongPage(1,5));
                 return "song/allMusic";
             case "myMusic":
                 User principal = (User) SecurityUtils.getSubject().getPrincipal();
@@ -157,5 +156,16 @@ public class SongController {
         }
     }
 
+
+    /**
+     * 分页查询
+     * @param currentPage 要查询的页数
+     * @return List<Song> 响应json到前端
+     * */
+    @GetMapping("/song/moreSong")
+    @ResponseBody
+    public List<Song> moreSong(int currentPage){
+        return songService.selectSongPage(currentPage,5);
+    }
 
 }

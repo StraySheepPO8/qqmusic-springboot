@@ -1,7 +1,6 @@
 package com.yahoo.service;
 
 import com.yahoo.pojo.entity.Song;
-import com.yahoo.pojo.entity.UserLike;
 import com.yahoo.pojo.vo.SongVO;
 
 import java.util.List;
@@ -17,4 +16,7 @@ public interface SongService {
 
     int update(Map<String, Object> map);
     int delete(int id);
+
+//    分页
+    List<Song> selectSongPage(long currentPage, long pageSize);
 }

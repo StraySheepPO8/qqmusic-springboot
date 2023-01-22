@@ -62,18 +62,19 @@
                         type: 'get',
                         dataType: "json",
                         beforeSend: function () {
-                            console.log('请求前');
+                            console.log('请求前:beforeSend()钩子执行');
                         },
                         success: function (data) {
                             const s = JSON.stringify(data);
-                            console.log("后端返回的数据是：" + s);
+                            console.log("预加载：后端响应的数据转换为json是：" + s);
                             $("#icon").attr('src', '/images/icon/' + data.iconName);
                         },
                         complete: function () {
                             // 请求完成的处理
+                            console.log('请求完成:complete()钩子执行');
                         },
                         error: function (status) {
-                            console.log('没有principal（Ajax）,status:' + status.toString());
+                            console.log('预加载：未被服务器认证，没有principal,status:' + status.toString());
                         }
                     });
                 });
