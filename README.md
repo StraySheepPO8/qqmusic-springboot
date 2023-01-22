@@ -8,7 +8,7 @@
 
 这个web项目是一个springboot项目（v2.6.7）使用的技术有：
 
-1. mybatis	2.1.1
+1. ~~mybatis	2.1.1~~ mybatis-plus 3.4.3.1
 2. mysql   8.0
 3. log4j    1.3.8.RELEASE
 4. thymeleaf
@@ -69,7 +69,7 @@ qq音乐网站页面设计
            url: jdbc:mysql://localhost:3306/qq_music?useUnicode=true&serverTimezone=GMT&charactorEncoding=utf8
      ```
 
-   - 数据库及其表的创建，表记录的初始化请看==数据库环境.md==文档。
+   - 数据库及其表的创建，表记录的初始化请看[数据库环境.md](./docs/数据库环境.md)文档。
 
 2. redis服务器环境
 
