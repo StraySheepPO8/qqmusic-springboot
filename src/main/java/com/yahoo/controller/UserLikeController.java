@@ -1,7 +1,7 @@
 package com.yahoo.controller;
 
 import com.yahoo.pojo.entity.User;
-import com.yahoo.service.UserLikeService;
+import com.yahoo.service.inter.UserLikeService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 //@EnableTransactionManagement
 public class MybatisPlusConfig {
 
-
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
@@ -27,9 +26,11 @@ public class MybatisPlusConfig {
         return interceptor;
     }
 
+
     @Bean
     public ConfigurationCustomizer configurationCustomizer() {
         return mybatisConfiguration -> mybatisConfiguration.setUseGeneratedShortKey(false);
     }
+
 
 }

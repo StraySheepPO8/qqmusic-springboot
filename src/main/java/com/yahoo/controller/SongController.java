@@ -2,9 +2,8 @@ package com.yahoo.controller;
 
 import com.yahoo.pojo.entity.Song;
 import com.yahoo.pojo.entity.User;
-import com.yahoo.service.SongService;
+import com.yahoo.service.inter.SongService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;

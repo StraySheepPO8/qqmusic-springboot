@@ -3,7 +3,7 @@ package com.yahoo.controller;
 import com.sun.istack.internal.NotNull;
 import com.yahoo.pojo.entity.User;
 import com.yahoo.pojo.vo.UserVO;
-import com.yahoo.service.UserService;
+import com.yahoo.service.inter.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;

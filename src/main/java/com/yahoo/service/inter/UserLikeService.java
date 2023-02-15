@@ -1,4 +1,4 @@
-package com.yahoo.service;
+package com.yahoo.service.inter;
 
 import com.yahoo.pojo.entity.UserLike;
 

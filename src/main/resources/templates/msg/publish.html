@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script th:src="@{/js/jquery-3.4.1.js}"></script>
+<script th:src="@{/Semantic-UI-CSS-master/semantic.js}"></script>
+<link rel="stylesheet" th:href="@{/Semantic-UI-CSS-master/semantic.css}">
+<head>
+    <meta charset="UTF-8">
+    <title>publish msg</title>
+</head>
+
+<body>
+<div style="margin-left:450px">
+    <form method="post" th:action="@{/msg/publish}">
+        <div>
+            title:<br />
+            <input type="text" name="title">
+        </div>
+        <div>
+            author:<br />
+            <input type="text" name="author">
+        </div>
+        <div>
+            content:<br />
+            <textarea name="content" rows="20" cols="60"></textarea>
+        </div>
+        <input type="submit"/>
+    </form>
+</div>
+</body>
+</body>
+</html>

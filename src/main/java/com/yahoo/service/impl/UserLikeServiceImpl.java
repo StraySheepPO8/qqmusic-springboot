@@ -2,7 +2,7 @@ package com.yahoo.service.impl;
 
 import com.yahoo.mapper.UserLikeMapper;
 import com.yahoo.pojo.entity.UserLike;
-import com.yahoo.service.UserLikeService;
+import com.yahoo.service.inter.UserLikeService;
 import com.yahoo.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

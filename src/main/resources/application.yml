@@ -13,7 +13,16 @@ spring:
     port: 6379
     password:
 #    type: com.zaxxer.hikari.HikariDataSource
-
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+#    手动应答
+    listener:
+      simple:
+        acknowledge-mode: manual
 
 mybatis-plus:
   mapper-locations: mybatis/mapper/*.xml

@@ -49,6 +49,12 @@
                    href="" class="ui green button text" style="margin: auto 0">
                     开通VIP
                 </a>
+                <a shiro:hasPermission="admin" class="ui item" th:href="@{/msg/toPublish}">
+                    发布公告
+                </a>
+                <a shiro:lacksPermission="admin" class="ui item" th:href="@{/msg/getMsg}">
+                    系统消息
+                </a>
                 <a class="ui item" th:href="@{/user/logout}">
                     退出登录
                 </a>

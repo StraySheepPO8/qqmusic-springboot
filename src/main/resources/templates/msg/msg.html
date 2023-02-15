@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script th:src="@{/js/jquery-3.4.1.js}"></script>
+<script th:src="@{/Semantic-UI-CSS-master/semantic.js}"></script>
+<link rel="stylesheet" th:href="@{/Semantic-UI-CSS-master/semantic.css}">
+<head>
+    <meta charset="UTF-8">
+    <title>系统公告</title>
+</head>
+<body>
+<h1 th:text="${msg.title}"></h1>
+<p>
+    作者：<span th:text="${msg.author}"></span>&emsp;
+    时间：<span th:text="${msg.publishTime}"></span>
+</p>
+<p></p>
+<h4 th:text="${msg.content}"></h4>
+</body>
+</html>

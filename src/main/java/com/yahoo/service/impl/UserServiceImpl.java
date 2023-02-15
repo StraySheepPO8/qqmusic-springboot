@@ -4,7 +4,7 @@ import com.yahoo.mapper.UserMapper;
 import com.yahoo.pojo.dto.UserDTO;
 import com.yahoo.pojo.entity.User;
 import com.yahoo.pojo.vo.UserVO;
-import com.yahoo.service.UserService;
+import com.yahoo.service.inter.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +12,7 @@ import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     UserMapper userMapper;
 
@@ -27,8 +28,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateByUsername(Map map) {
-        return userMapper.updateByUsername(map);
+    public void updateByUsername(Map map) {
+        userMapper.updateByUsername(map);
     }
 
 
